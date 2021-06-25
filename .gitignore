@@ -1,3 +1,6 @@
 .vscode
 __*__
 *.sqlite3
+*.jpeg
+*.jpg
+*.png
