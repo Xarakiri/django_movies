@@ -72,8 +72,23 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.title
-    
+
     class Meta:
         verbose_name = 'Фильм'
         verbose_name_plural = 'Фильм'
+
+
+class MovieShots(models.Model):
+    """Кадры из фильма"""
+    title = models.CharField('Заголовок', max_length=100)
+    description = models.TextField('Описание')
+    image = models.ImageField('Изображение', upload_to='movie_shots/')
+    mobide = models.ForeignKey(Movie, verbose_name='Фильм', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Кадр из фильма'
+        verbose_name_plural = 'Кадр из фильма'
 
