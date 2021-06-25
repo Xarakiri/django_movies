@@ -1,6 +1,8 @@
 from django.db import models
 from datetime import date
 
+from django.db.models.base import Model
+
 
 class Category(models.Model):
     """Категория"""
@@ -92,3 +94,28 @@ class MovieShots(models.Model):
         verbose_name = 'Кадр из фильма'
         verbose_name_plural = 'Кадр из фильма'
 
+
+class RatingStar(models.Model):
+    """Звезда рейтинга"""
+    value = models.SmallIntegerField('Значение', default=0)
+
+    def __str__(self):
+        return self.value
+
+    class Meta:
+        verbose_name = 'Звезда рейтинга'
+        verbose_name_plural = 'Звезда рейтинга'
+
+
+class Rating(models.Model):
+    """Рейтинг"""
+    ip = models.CharField('IP адрес', max_length=15)
+    star = models.ForeignKey(RatingStar, on_delete=models.CASCADE, verbose_name='звезда')
+    movie = models.ForeignKey(Movie, on_delete=models.CharField, verbose_name='фильм')
+
+    def __str__(self):
+        return f'{self.star} - {self.movie}'
+
+    class Meta:
+        verbose_name = 'Рейтинг'
+        verbose_name_plural = 'Рейтинг'
